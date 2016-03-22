@@ -18,7 +18,7 @@ MouseController :: yRot    ( float& rotY )
     if ( rotY <= -360 ) rotY = 0;
     if ( rotY >= 360  ) rotY = 0;
 
-    mouseXBefore = sf::Mouse::getPosition().x;
+    mouseXBefore = sf::Mouse::getPosition().x;//
 }
 
 void
