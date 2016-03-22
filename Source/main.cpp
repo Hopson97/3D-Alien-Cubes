@@ -4,18 +4,21 @@
 #include "mousecontroller.h"
 
 void
-windowEvents ( sf::Window& window);
+windowEvents ( sf::Window& window );
+
+void
+lockMouse ( sf::Window& window );
 
 int
 main()
 {
-
+    constexpr int FOV_CHANGE = 2;
     float FOV = 90.0f;
 
     int numCubes = 15;
 
     float forwardSpeed = 0;
-    float maxSpeed = 0.1;
+    float maxSpeed = 0.3;
 
     MouseController mouse;
 
@@ -25,11 +28,13 @@ main()
 
     sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT),
                             "Balls.",
-                            sf::Style::Resize,
+                            sf::Style::Close,
                             settings);
     window.setFramerateLimit(120);                                                   //Set it's frame rate limit
 
     window.setPosition({0,0});
+
+    window.setMouseCursorVisible( false );
 
     glewExperimental = GL_TRUE; //GLEW
     glewInit();
@@ -37,7 +42,7 @@ main()
     glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);  //OpenGL, cull faces to improve performance
     glEnable(GL_DEPTH_TEST);
     //glEnable(GL_CULL_FACE);
-    //glCullFace(GL_BACK);
+    glCullFace(GL_BACK);
 
     std::vector<BallThing>  mBalls;
     for ( int i = 0; i < 2; i++) {
@@ -64,8 +69,6 @@ main()
                                       3,
                                       ( float ) random::num( -numCubes, numCubes)) );
     }
-
-    std::cout << cubes.size() << std::endl;
 
     glm::vec3 pos { 0, 0, 0 };
     glm::vec3 rot { 0, 0, 0 };
@@ -95,17 +98,16 @@ main()
             sideSpeed = 0;
         }
 */
-
         if ( sf::Keyboard::isKeyPressed( sf::Keyboard::P) ) {
-            FOV += 1.0f;
-            if ( FOV > 178 ) FOV = 178;
+            FOV += FOV_CHANGE;
+            if ( FOV > 179 ) FOV = 179;
         }
         else if ( sf::Keyboard::isKeyPressed( sf::Keyboard::O) ) {
-            FOV -= 1.0f;
+            FOV -= FOV_CHANGE;
             if ( FOV < 1 ) FOV = 1;
         }
 
-        mouse.getRot( rot );
+        mouse.getRot( rot, window );
 
         float dz = forwardSpeed * sin (  glm::radians ( rot.y ) );
         float dx = forwardSpeed * cos (  glm::radians ( rot.y ) );
@@ -129,8 +131,8 @@ main()
         proj = proj * xRotMat * yRotMat;
 
         float time = c.getElapsedTime().asSeconds();
-        glClearColor( 1, 0, 0, 1 );
-        //glClearColor( sin(time), 1, 1, 1 );
+        //glClearColor( 1, 0, 0, 1 );
+        glClearColor( sin(time), 1, 1, 1 );
         glClear ( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
         //drawing
         {
@@ -164,5 +166,33 @@ windowEvents ( sf::Window& window)
         if ( e.type == sf::Event::Closed ) window.close();
 
         if ( sf::Keyboard::isKeyPressed( sf::Keyboard::Escape ) ) window.close();
+    }
+    lockMouse ( window );
+}
+
+void
+lockMouse( sf::Window& window )
+{
+    int maxX = window.getSize().x;
+    int maxY = window.getSize().y;
+
+    int limit = 100;
+
+    int mX = sf::Mouse::getPosition(window).x;
+    int mY = sf::Mouse::getPosition(window).y;
+
+    if (mX < 0 || mY < 0 || mX > maxX || mY > maxY)
+    {
+        if (mX < 0)
+            mX = limit;
+        else if (mX > maxX)
+            mX = maxX - limit;
+
+        if (mY < 0)
+            mY = limit;
+        else if (mY > maxY)
+            mY = maxY - limit;
+
+        sf::Mouse::setPosition(sf::Vector2i(mX, mY), window);
     }
 }

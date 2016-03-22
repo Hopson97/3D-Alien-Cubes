@@ -8,22 +8,27 @@ class MouseController
 {
     public:
         void
-        getRot  ( glm::vec3& rotVector );
+        getRot      ( glm::vec3& rotVector, sf::RenderWindow& window );
 
     private:
         void
-        yRot    ( float& yRot );
+        yRot        ( float& yRot, sf::RenderWindow& window  );
 
         void
-        xRot    ( float& xRot );
+        xRot        ( float& xRot, sf::RenderWindow& window  );
+
+        const float
+        rotChange   ( const float rot );
 
     private:
+        float       mouseXBefore,
+                    mouseYBefore,
+                    x,
+                    y;
 
-        float mouseXBefore;
-        float mouseYBefore;
+        unsigned    SENSITIVITY     { 7 },
+                    MAX_SENSITIVITY { 10 };
 
-        constexpr static unsigned      SENSITIVITY = 7;
-        constexpr static unsigned  MAX_SENSITIVITY = 10;
 };
 
 #endif // MOUSECONTROLLER_H
