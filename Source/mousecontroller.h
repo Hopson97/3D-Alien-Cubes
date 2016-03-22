@@ -22,9 +22,6 @@ class MouseController
         float mouseXBefore;
         float mouseYBefore;
 
-        //float currX;
-        //float currY;
-
         constexpr static unsigned      SENSITIVITY = 7;
         constexpr static unsigned  MAX_SENSITIVITY = 10;
 };

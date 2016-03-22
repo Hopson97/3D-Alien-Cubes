@@ -9,7 +9,7 @@ MouseController :: getRot ( glm::vec3& rotVector )
 }
 
 void
-MouseController :: yRot    ( float& rotY )
+MouseController :: yRot ( float& rotY )
 {
     float rot = sf::Mouse::getPosition().x - mouseXBefore;
 
@@ -22,13 +22,13 @@ MouseController :: yRot    ( float& rotY )
 }
 
 void
-MouseController :: xRot    ( float& rotX )
+MouseController :: xRot ( float& rotX )
 {
     const int maxRotDown = 50;
     const int maxRotUp = -100;
 
-    if ( rotX <= -360 ) rotX = 0;
-    if ( rotX >= 360  ) rotX = 0;
+    if ( rotX <= -360 )  rotX = 0;
+    if ( rotX >=  360  ) rotX = 0;
 
     if ( rotX > maxRotDown ) {
         rotX = maxRotDown - 0.1;
