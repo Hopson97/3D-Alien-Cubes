@@ -1,5 +1,8 @@
 #include "ballthing.h"
 
+constexpr float WINDOW_HEIGHT = 600.0f;
+constexpr float WINDOW_WIDTH  = 1180.0f;
+
 BallThing :: BallThing(  )
 {
     mShape.setPosition( { (float)random::num(0, WINDOW_WIDTH), (float)random::num(0, WINDOW_HEIGHT)} );
@@ -23,7 +26,7 @@ BallThing :: update ( sf::RenderWindow& window )
 
     updateParticles(window);
 
-    for ( int i = 0 ; i < 1 ; i++ ) {
+    for ( int i = 0 ; i < 2 ; i++ ) {
         mParticles.emplace_back( mShape.getPosition() );
     }
 
