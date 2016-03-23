@@ -48,15 +48,15 @@ main()
 
         glm::mat4 proj;
         glm::mat4 view;
-
-        player.update( view, proj, window.get() );
-
-
         float time = c.getElapsedTime().asSeconds();
+
+        player.update( view, proj, window.get(), time );
+
+
 
         //GL drawing
         for ( auto& cube : cubes) {
-            cube.update ( view, proj, time );
+            cube.update ( view, proj, window.get(), time );
         }
 
         window.get().pushGLStates();

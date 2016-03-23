@@ -1,18 +1,15 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include <GL/glew.h>
-#include <glm/basics.hpp>
-#include <SFML/Graphics.hpp>
-
+#include "entity.h"
 #include "mousecontroller.h"
 
 
-class Player
+class Player : public Entity
 {
     public:
         void
-        update      ( glm::mat4& view, glm::mat4& proj, sf::RenderWindow& window );
+        update      ( glm::mat4& view, glm::mat4& proj, sf::RenderWindow& window, const float time  ) override;
 
     private:
         void
@@ -31,14 +28,10 @@ class Player
         fovInput    ();
 
     private:
-        glm::vec3 mVelocity { 0, 0, 0 };
-        glm::vec3 mPosition { 0, 0, 0 };
-        glm::vec3 mRotation { 0, 0, 0 };
-
         MouseController mMouseController;
 
-        float mForwardSpeed = 0;
-        float mMaxSpeed     = 0.21;
+        float mSpeed = 0.0;
+        float mMaxSpeed     = 0.2;
 
         float mJumpSpeed    = 0.3;
         float mFallSpeed    = 0.015;

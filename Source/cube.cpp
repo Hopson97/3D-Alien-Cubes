@@ -5,10 +5,11 @@
 
 Cube :: Cube( const glm::vec3& positionVector, const bool floats )
 :   mShader         ( "Shaders/vert.vert", "Shaders/frag.frag" )
-,   mPosition       ( positionVector )
 ,   doesFloat       ( floats )
-,   mPermYPos       ( mPosition.y )
+,   mPermYPos       ( positionVector.y )
 {
+    mPosition = positionVector;
+
     mNumIndices = vectors::indices.size();
 
     glGenVertexArrays ( 1, &mVao);
@@ -34,7 +35,7 @@ Cube :: ~Cube()
 }
 
 void
-Cube :: update  ( const glm::mat4& view, const glm::mat4& proj, const float time )
+Cube :: update  ( glm::mat4& view, glm::mat4& proj, sf::RenderWindow& window, const float time )
 {
     if ( doesFloat ) {
         mPosition.y = mPermYPos + sin(mPosition.x + time) / 4;

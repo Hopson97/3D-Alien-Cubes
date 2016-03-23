@@ -10,8 +10,9 @@
 
 #include "shader.h"
 #include "opengl_funcs.h"
+#include "entity.h"
 
-class Cube
+class Cube : public Entity
 {
     using VboList = std::vector<GLuint*>;
 
@@ -21,7 +22,7 @@ class Cube
         ~Cube   ();
 
         void
-        update  ( const glm::mat4& view, const glm::mat4& proj, const float time );
+        update  ( glm::mat4& view, glm::mat4& proj, sf::RenderWindow& window, const float time ) override;
 
     private:
         void
@@ -34,9 +35,6 @@ class Cube
         GLuint      mNumIndices;
 
         Shader      mShader;
-
-        glm::vec3   mPosition;
-        glm::vec3   mRotation;
 
         bool        doesFloat;
 

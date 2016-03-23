@@ -3,15 +3,15 @@
 #include "window.h"
 
 void
-Player :: update      ( glm::mat4& view, glm::mat4& proj, sf::RenderWindow& window )
+Player :: update      (  glm::mat4& view, glm::mat4& proj, sf::RenderWindow& window, const float time  )
 {
     if ( mPosition.y < 0 ) mVelocity.y += mFallSpeed;
     if ( mPosition.y >= 0 ) mPosition.y = 0;
 
     input ( window );
 
-    float dz = mForwardSpeed * sin (  glm::radians ( mRotation.y ) );
-    float dx = mForwardSpeed * cos (  glm::radians ( mRotation.y ) );
+    float dz = mSpeed * sin (  glm::radians ( mRotation.y ) );
+    float dx = mSpeed * cos (  glm::radians ( mRotation.y ) );
 
     mPosition.x += dx;
     mPosition.z += dz;
@@ -29,7 +29,6 @@ Player :: update      ( glm::mat4& view, glm::mat4& proj, sf::RenderWindow& wind
     glm::mat4 finalmRotation = xRotationMatrix * yRotationMatrix;
 
     proj = proj * finalmRotation;
-
 }
 
 void
@@ -51,13 +50,13 @@ void
 Player :: walkInput   ()
 {
     if ( sf::Keyboard::isKeyPressed ( sf::Keyboard::W ) ) {
-        mForwardSpeed = -mMaxSpeed;
+        mSpeed = -mMaxSpeed;
     }
     else if ( sf::Keyboard::isKeyPressed ( sf::Keyboard::S ) ) {
-        mForwardSpeed = mMaxSpeed;
+        mSpeed = mMaxSpeed;
     }
     else {
-        mForwardSpeed = 0;
+        mSpeed = 0;
     }
 }
 
