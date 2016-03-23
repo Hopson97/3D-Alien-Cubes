@@ -13,35 +13,34 @@
 
 class Cube
 {
-    public:
-        Cube( const glm::vec3& vec, const bool floats);
+    using VboList = std::vector<GLuint*>;
 
-        ~Cube();
+    public:
+        Cube    ( const glm::vec3& positionVector, const bool floats );
+
+        ~Cube   ();
 
         void
-        update      ( const glm::mat4& view, const glm::mat4& proj, const float time );
+        update  ( const glm::mat4& view, const glm::mat4& proj, const float time );
 
     private:
         void
-        draw        ( const glm::mat4& view, const glm::mat4& proj, const float time );
+        draw    ( const glm::mat4& view, const glm::mat4& proj, const float time );
 
-        std::vector<GLuint*> mBufferObjectList;
+    private:
+        VboList     mBufferObjectList;
 
         GLuint      mVao;
+        GLuint      mNumIndices;
 
-        int         indices;
+        Shader      mShader;
 
-        Shader      shader;
-
-        glm::vec3   pos;
-
+        glm::vec3   mPosition;
+        glm::vec3   mRotation;
 
         bool        doesFloat;
 
-        float       permYPos,
-                    xRot { 0 },
-                    yRot { 0 },
-                    zRot { 0 };
+        float       mPermYPos; //Where the floaters float around
 };
 
 #endif // CUBE_H

@@ -5,30 +5,30 @@
 void
 Player :: update      ( glm::mat4& view, glm::mat4& proj, sf::RenderWindow& window )
 {
-    if ( pos.y < 0 ) vel.y += fallSpeed;
-    if ( pos.y >= 0 ) pos.y = 0;
+    if ( mPosition.y < 0 ) mVelocity.y += mFallSpeed;
+    if ( mPosition.y >= 0 ) mPosition.y = 0;
 
     input ( window );
 
-    float dz = forwardSpeed * sin (  glm::radians ( rot.y ) );
-    float dx = forwardSpeed * cos (  glm::radians ( rot.y ) );
+    float dz = mForwardSpeed * sin (  glm::radians ( mRotation.y ) );
+    float dx = mForwardSpeed * cos (  glm::radians ( mRotation.y ) );
 
-    pos.x += dx;
-    pos.z += dz;
-    pos.y += vel.y;
+    mPosition.x += dx;
+    mPosition.z += dz;
+    mPosition.y += mVelocity.y;
 
-    view =  glm::translate      (view,  pos);
+    view =  glm::translate      (view,  mPosition);
     proj =  glm::perspective    (glm::radians(FOV), win::WINDOW_WIDTH / win::WINDOW_HEIGHT, 0.01f, 100.0f);
 
-    glm::mat4 yRotMat;
-    glm::mat4 xRotMat;
+    glm::mat4 yRotationMatrix;
+    glm::mat4 xRotationMatrix;
 
-    yRotMat = glm::rotate( yRotMat, glm::radians ( rot.y + 90 ) ,   glm::vec3 ( 0, 1, 0 ) );
-    xRotMat = glm::rotate( xRotMat, glm::radians ( rot.x ) ,        glm::vec3 ( 1, 0, 0 ) );
+    yRotationMatrix = glm::rotate( yRotationMatrix, glm::radians ( mRotation.y + 90 ) ,   glm::vec3 ( 0, 1, 0 ) );
+    xRotationMatrix = glm::rotate( xRotationMatrix, glm::radians ( mRotation.x ) ,        glm::vec3 ( 1, 0, 0 ) );
 
-    glm::mat4 finalRot = xRotMat * yRotMat;
+    glm::mat4 finalmRotation = xRotationMatrix * yRotationMatrix;
 
-    proj = proj * finalRot;
+    proj = proj * finalmRotation;
 
 }
 
@@ -44,28 +44,28 @@ Player :: input       ( sf::RenderWindow& window )
 void
 Player :: mouseInput  ( sf::RenderWindow& window )
 {
-    mouse.getRot( rot, window );
+    mMouseController.getRot( mRotation, window );
 }
 
 void
 Player :: walkInput   ()
 {
     if ( sf::Keyboard::isKeyPressed ( sf::Keyboard::W ) ) {
-        forwardSpeed = -maxSpeed;
+        mForwardSpeed = -mMaxSpeed;
     }
     else if ( sf::Keyboard::isKeyPressed ( sf::Keyboard::S ) ) {
-        forwardSpeed = maxSpeed;
+        mForwardSpeed = mMaxSpeed;
     }
     else {
-        forwardSpeed = 0;
+        mForwardSpeed = 0;
     }
 }
 
 void
 Player :: jumpInput   ()
 {
-    if ( sf::Keyboard::isKeyPressed( sf::Keyboard::Space ) && pos.y == 0  ) {
-        vel.y -= jumpSpeed;
+    if ( sf::Keyboard::isKeyPressed( sf::Keyboard::Space ) && mPosition.y == 0  ) {
+        mVelocity.y -= mJumpSpeed;
     }
 }
 

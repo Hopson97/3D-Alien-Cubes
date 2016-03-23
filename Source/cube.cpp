@@ -3,13 +3,13 @@
 #include "opengl_funcs.h"
 #include "vectors.h"
 
-Cube :: Cube( const glm::vec3& vec, const bool floats )
-:   shader      ( "Shaders/vert.vert", "Shaders/frag.frag" )
-,   pos         ( vec )
-,   doesFloat   ( floats )
-,   permYPos    ( pos.y )
+Cube :: Cube( const glm::vec3& positionVector, const bool floats )
+:   mShader         ( "Shaders/vert.vert", "Shaders/frag.frag" )
+,   mPosition       ( positionVector )
+,   doesFloat       ( floats )
+,   mPermYPos       ( mPosition.y )
 {
-    this->indices = vectors::indices.size();
+    mNumIndices = vectors::indices.size();
 
     glGenVertexArrays ( 1, &mVao);
 
@@ -37,7 +37,7 @@ void
 Cube :: update  ( const glm::mat4& view, const glm::mat4& proj, const float time )
 {
     if ( doesFloat ) {
-        pos.y = permYPos + sin(pos.x + time) / 4;
+        mPosition.y = mPermYPos + sin(mPosition.x + time) / 4;
     }
 
     draw ( view, proj, time );
@@ -47,38 +47,38 @@ void
 Cube :: draw    ( const glm::mat4& view, const glm::mat4& proj, const float time )
 {
     glBindVertexArray ( mVao );
-    shader.useProgram();
+    mShader.useProgram();
 
     glm::mat4 model;
-    model = glm::translate( model, pos);
+    model = glm::translate( model, mPosition );
 
     glm::mat4 xRotMat;
     glm::mat4 yRotMat;
     glm::mat4 zRotMat;
 
-    xRotMat = glm::rotate ( xRotMat, glm::radians( xRot ), glm::vec3(1, 0, 0) );
-    yRotMat = glm::rotate ( yRotMat, glm::radians( yRot ), glm::vec3(0, 1, 0) );
-    zRotMat = glm::rotate ( zRotMat, glm::radians( zRot ), glm::vec3(0, 0, 1) );
+    xRotMat = glm::rotate ( xRotMat, glm::radians( mRotation.x ), glm::vec3(1, 0, 0) );
+    yRotMat = glm::rotate ( yRotMat, glm::radians( mRotation.y ), glm::vec3(0, 1, 0) );
+    zRotMat = glm::rotate ( zRotMat, glm::radians( mRotation.z ), glm::vec3(0, 0, 1) );
 
     glm::mat4 rotMat;
     rotMat = xRotMat * yRotMat * zRotMat;
 
     model = model * rotMat;
 
-    GLuint projLoc      = glGetUniformLocation(shader.getProgramId(), "projectionMatrix");  //Don't forget to write this stuff
-    GLuint viewLoc      = glGetUniformLocation(shader.getProgramId(), "viewMatrix");        //up in the vertex SHADER
-    GLuint modelLoc     = glGetUniformLocation(shader.getProgramId(), "modelMatrix");
-    GLuint timeLoc      = glGetUniformLocation(shader.getProgramId(), "t");
+    GLuint projLoc      = glGetUniformLocation ( mShader.getProgramId(), "projectionMatrix" );
+    GLuint viewLoc      = glGetUniformLocation ( mShader.getProgramId(), "viewMatrix"  );
+    GLuint modelLoc     = glGetUniformLocation ( mShader.getProgramId(), "modelMatrix" );
+    GLuint timeLoc      = glGetUniformLocation ( mShader.getProgramId(), "t" );
 
     glUniformMatrix4fv  ( modelLoc, 1, GL_FALSE, glm::value_ptr ( model ) );
     glUniformMatrix4fv  ( viewLoc,  1, GL_FALSE, glm::value_ptr ( view  ) );
     glUniformMatrix4fv  ( projLoc,  1, GL_FALSE, glm::value_ptr ( proj  ) );
     glUniform1f         ( timeLoc, time);
 
-    glDrawElements ( GL_TRIANGLES, indices, GL_UNSIGNED_INT, 0);
+    glDrawElements ( GL_TRIANGLES, mNumIndices, GL_UNSIGNED_INT, 0);
 
 
-    shader.unuseProgram();
+    mShader.unuseProgram();
     glBindVertexArray ( 0 );
 }
 

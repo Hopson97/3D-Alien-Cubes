@@ -31,20 +31,20 @@ class Player
         fovInput    ();
 
     private:
-        glm::vec3 vel { 0, 0, 0 };
-        glm::vec3 pos { 0, 0, 0 };
-        glm::vec3 rot { 0, 0, 0 };
+        glm::vec3 mVelocity { 0, 0, 0 };
+        glm::vec3 mPosition { 0, 0, 0 };
+        glm::vec3 mRotation { 0, 0, 0 };
 
-        MouseController mouse;
+        MouseController mMouseController;
 
-        float forwardSpeed = 0;
-        float maxSpeed = 0.21;
+        float mForwardSpeed = 0;
+        float mMaxSpeed     = 0.21;
 
-        float jumpSpeed = 0.3;
-        float fallSpeed = 0.015;
+        float mJumpSpeed    = 0.3;
+        float mFallSpeed    = 0.015;
 
-        int FOV_CHANGE = 2;
-        float FOV = 90.0f;
+        int     FOV_CHANGE  = 2;
+        float   FOV         = 90.0f;
 
 };
 
