@@ -14,7 +14,7 @@
 class Cube
 {
     public:
-        Cube( const glm::vec3& vec );
+        Cube( const glm::vec3& vec, const bool floats);
 
         ~Cube();
 
@@ -25,21 +25,23 @@ class Cube
         void
         draw        ( const glm::mat4& view, const glm::mat4& proj, const float time );
 
-        GLuint mVao;
-
         std::vector<GLuint*> mBufferObjectList;
 
-        Shader shader;
+        GLuint      mVao;
 
-        int indices;
+        int         indices;
 
-        float   xRot { 0 },
-                yRot { 0 },
-                zRot { 0 };
+        Shader      shader;
 
-        glm::vec3 pos;
+        glm::vec3   pos;
 
 
+        bool        doesFloat;
+
+        float       permYPos,
+                    xRot { 0 },
+                    yRot { 0 },
+                    zRot { 0 };
 };
 
 #endif // CUBE_H

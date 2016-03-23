@@ -3,8 +3,10 @@
 
 #include <SFML/Graphics.hpp>
 
+namespace win {
 constexpr float WINDOW_HEIGHT = 600.0f;
 constexpr float WINDOW_WIDTH  = 1180.0f;
+}
 
 class Window
 {

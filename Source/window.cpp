@@ -6,7 +6,7 @@ Window :: Window()
     sf::ContextSettings settings;
     settings.depthBits = 24;
 
-    window.create(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT),
+    window.create(sf::VideoMode( win::WINDOW_WIDTH, win::WINDOW_HEIGHT),
                   "Balls.",
                   sf::Style::Close,
                   settings);
@@ -19,7 +19,7 @@ Window :: Window()
     glewExperimental = GL_TRUE; //GLEW
     glewInit();
 
-    glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);  //OpenGL, cull faces to improve performance
+    glViewport(0, 0, win::WINDOW_WIDTH, win::WINDOW_HEIGHT);  //OpenGL, cull faces to improve performance
     glEnable(GL_DEPTH_TEST);
     //glEnable(GL_CULL_FACE);
     glCullFace(GL_BACK);

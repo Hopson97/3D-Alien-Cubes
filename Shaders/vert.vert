@@ -10,11 +10,15 @@ uniform float t;
 out float z;
 out float time;
 
+void set_outs ()
+{
+    z = gl_Position.z;
+    time = t;
+}
+
 void main()
 {
     gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4(position, 1.0);
 
-    z = gl_Position.z;
-
-    time = t;
+    set_outs ();
 }

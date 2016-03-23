@@ -3,9 +3,11 @@
 #include "opengl_funcs.h"
 #include "vectors.h"
 
-Cube :: Cube( const glm::vec3& vec )
-:   shader  ( "Shaders/vert.vert", "Shaders/frag.frag")
-,   pos     ( vec )
+Cube :: Cube( const glm::vec3& vec, const bool floats )
+:   shader      ( "Shaders/vert.vert", "Shaders/frag.frag" )
+,   pos         ( vec )
+,   doesFloat   ( floats )
+,   permYPos    ( pos.y )
 {
     this->indices = vectors::indices.size();
 
@@ -34,6 +36,10 @@ Cube :: ~Cube()
 void
 Cube :: update  ( const glm::mat4& view, const glm::mat4& proj, const float time )
 {
+    if ( doesFloat ) {
+        pos.y = permYPos + sin(pos.x + time) / 4;
+    }
+
     draw ( view, proj, time );
 }
 
