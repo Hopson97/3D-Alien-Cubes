@@ -8,8 +8,6 @@
 class Entity
 {
     public:
-        Entity ();
-
         virtual void
         update      ( glm::mat4& view, glm::mat4& proj, sf::RenderWindow& window, const float time ) = 0;
 

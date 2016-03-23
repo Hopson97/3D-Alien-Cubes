@@ -1,6 +1,5 @@
 #include "cube.h"
 #include "rand.h"
-#include "ballthing.h"
 #include "window.h"
 #include "player.h"
 
