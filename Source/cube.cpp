@@ -13,7 +13,6 @@ Cube :: Cube( const glm::vec3& positionVector, const bool floats )
     mNumIndices = vectors::indices.size();
 
     glGenVertexArrays ( 1, &mVao);
-
     glBindVertexArray   ( mVao);
 
     glFuncs::addBufferObject    (mBufferObjectList, vectors::vertices, GL_ARRAY_BUFFER);
@@ -38,7 +37,7 @@ void
 Cube :: update  ( glm::mat4& view, glm::mat4& proj, sf::RenderWindow& window, const float time )
 {
     if ( doesFloat ) {
-        mPosition.y = mPermYPos + sin(mPosition.x + time) / 4;
+        mPosition.y = mPermYPos + sin(mPosition.x + time) / 2;
     }
 
     draw ( view, proj, time );

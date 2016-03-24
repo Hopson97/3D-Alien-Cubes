@@ -20,5 +20,7 @@ void main()
 {
     gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4(position, 1.0);
 
+    //gl_Position.y = (pow ((gl_Position.x + gl_Position.y), 2) / 15) - 1;
+
     set_outs ();
 }

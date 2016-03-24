@@ -4,8 +4,8 @@
 #include <SFML/Graphics.hpp>
 
 namespace win {
-constexpr float WINDOW_HEIGHT = 600.0f;
-constexpr float WINDOW_WIDTH  = 1180.0f;
+constexpr float WINDOW_HEIGHT = 768.0f;
+constexpr float WINDOW_WIDTH  = 1480.0f;
 }
 
 class Window

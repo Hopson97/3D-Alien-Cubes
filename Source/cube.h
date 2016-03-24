@@ -18,7 +18,6 @@ class Cube : public Entity
 
     public:
         Cube    ( const glm::vec3& positionVector, const bool floats );
-
         ~Cube   ();
 
         void

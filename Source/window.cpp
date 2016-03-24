@@ -22,7 +22,7 @@ Window :: Window()
     glViewport(0, 0, win::WINDOW_WIDTH, win::WINDOW_HEIGHT);  //OpenGL, cull faces to improve performance
     glEnable(GL_DEPTH_TEST);
     //glEnable(GL_CULL_FACE);
-    glCullFace(GL_BACK);
+    //glCullFace(GL_BACK);
 }
 
 void

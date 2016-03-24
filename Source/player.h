@@ -30,14 +30,14 @@ class Player : public Entity
     private:
         MouseController mMouseController;
 
-        float mSpeed = 0.0;
-        float mMaxSpeed     = 0.2;
+        float mSpeed            { 0.0 };
+        float mMaxSpeed         { 0.1 };
 
-        float mJumpSpeed    = 0.3;
-        float mFallSpeed    = 0.015;
+        float mJumpSpeed        { 1 };
+        float mFallSpeed        { 0.015 };
 
-        int     FOV_CHANGE  = 2;
-        float   FOV         = 90.0f;
+        int     FOV_CHANGE      { 2};
+        float   FOV             { 90.0f};
 
 };
 

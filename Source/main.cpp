@@ -3,12 +3,6 @@
 #include "window.h"
 #include "player.h"
 
-void
-windowEvents ( sf::Window& window );
-
-void
-lockMouse ( sf::Window& window );
-
 int
 main()
 {
@@ -50,8 +44,6 @@ main()
         float time = c.getElapsedTime().asSeconds();
 
         player.update( view, proj, window.get(), time );
-
-
 
         //GL drawing
         for ( auto& cube : cubes) {

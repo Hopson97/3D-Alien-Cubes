@@ -2,6 +2,38 @@
 
 #include "window.h"
 
+#include <cmath>
+
+struct FOVdance
+{
+    void
+    update ( float& FOV )
+    {
+        if ( inc ) {
+            FOV += incAmount;
+            if ( FOV > MAX ) inc = false;
+        }
+        else {
+            FOV -= incAmount;
+            if ( FOV < MIN ) inc = true;
+        }
+    }
+
+    private:
+        bool inc { true };
+
+        constexpr
+        static
+        unsigned    MAX { 179 },
+                    MIN { 1   };
+
+        constexpr
+        static
+        float       incAmount { 0.2 };
+};
+
+FOVdance d;
+
 void
 Player :: update      (  glm::mat4& view, glm::mat4& proj, sf::RenderWindow& window, const float time  )
 {
@@ -9,6 +41,8 @@ Player :: update      (  glm::mat4& view, glm::mat4& proj, sf::RenderWindow& win
     if ( mPosition.y >= 0 ) mPosition.y = 0;
 
     input ( window );
+
+    d.update( FOV );
 
     float dz = mSpeed * sin (  glm::radians ( mRotation.y ) );
     float dx = mSpeed * cos (  glm::radians ( mRotation.y ) );
@@ -37,7 +71,7 @@ Player :: input       ( sf::RenderWindow& window )
     mouseInput  ( window );
     walkInput   ();
     jumpInput   ();
-    fovInput    ();
+    //fovInput    ();
 }
 
 void
