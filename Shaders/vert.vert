@@ -5,15 +5,15 @@ layout (location = 0) in vec3 position;
 uniform mat4 projectionMatrix;
 uniform mat4 viewMatrix;
 uniform mat4 modelMatrix;
-uniform float t;
+uniform float time;
 
-out float z;
-out float time;
+varying float zPosition;
+varying float currentTime;
 
 void set_outs ()
 {
-    z = gl_Position.z;
-    time = t;
+    zPosition = gl_Position.z;
+    currentTime = time;
 }
 
 void main()

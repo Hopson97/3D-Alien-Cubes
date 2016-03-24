@@ -1,19 +1,19 @@
 #version 330 core
 
-out vec4 color;
-
-in float z;
-in float time;
+varying float zPosition;
+varying float currentTime;
 
 void main()
 {
-    float c = sin(time);
+    float c = sin(currentTime);
 
-    float c2 = z/13;
+    float c2 = zPosition / 13;
 
     if ( c2 < 0.3) c2 = 0.3;
 
-    color = vec4 ( c * c2, c2, c2, 1.0f);
+
+
+    gl_FragColor = vec4 ( c * c2, c2, c2, 1.0f);
 
 
 

@@ -6,10 +6,6 @@ MouseController :: getRot ( glm::vec3& rotVector, sf::RenderWindow& window )
 {
     yRot( rotVector.y, window ); // Left - Right movement
     xRot( rotVector.x, window ); // Up - Down movement
-/*
-    sf::Mouse::setPosition( {window.getSize().x / 2, window.getSize().y / 2},
-                             window );
-*/
 }
 
 /// /////////////////////////////////////////////////////////
@@ -38,20 +34,20 @@ MouseController :: xRot    ( float& rotX, sf::RenderWindow& window  )
     if ( rotX <= -360 ) rotX = 0;
     if ( rotX >= 360  ) rotX = 0;
 
-    if ( rotX > maxRotDown ) {      //Some if-statements to stop the view going upside-down
-        rotX = maxRotDown - 0.1;
-        return;
-    }
-    else if ( rotX < maxRotUp ) {
-        rotX = maxRotUp + 0.1;
-        return;
-    }
-
     float rot = sf::Mouse::getPosition( window ).y - mouseYBefore;  //Remember, the Y axis goes up to down, so can only rotate "left and right"
 
     rotX += rotChange ( rot );
 
     mouseYBefore = sf::Mouse::getPosition( window ).y;
+
+    if ( rotX > maxRotDown ) {      //Some if-statements to stop the view going upside-down
+        rotX = maxRotDown;
+        return;
+    }
+    else if ( rotX < maxRotUp ) {
+        rotX = maxRotUp;
+        return;
+    }
 }
 
 const float

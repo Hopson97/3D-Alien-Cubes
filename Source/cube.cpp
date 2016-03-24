@@ -68,7 +68,7 @@ Cube :: draw    ( const glm::mat4& view, const glm::mat4& proj, const float time
     GLuint projLoc      = glGetUniformLocation ( mShader.getProgramId(), "projectionMatrix" );
     GLuint viewLoc      = glGetUniformLocation ( mShader.getProgramId(), "viewMatrix"  );
     GLuint modelLoc     = glGetUniformLocation ( mShader.getProgramId(), "modelMatrix" );
-    GLuint timeLoc      = glGetUniformLocation ( mShader.getProgramId(), "t" );
+    GLuint timeLoc      = glGetUniformLocation ( mShader.getProgramId(), "time" );
 
     glUniformMatrix4fv  ( modelLoc, 1, GL_FALSE, glm::value_ptr ( model ) );
     glUniformMatrix4fv  ( viewLoc,  1, GL_FALSE, glm::value_ptr ( view  ) );

@@ -19,7 +19,7 @@ class Player : public Entity
         mouseInput  ( sf::RenderWindow& window );
 
         void
-        walkInput   ();
+        walkInput   ( float& dx, float& dz );
 
         void
         jumpInput   ();
@@ -30,10 +30,9 @@ class Player : public Entity
     private:
         MouseController mMouseController;
 
-        float mSpeed            { 0.0 };
         float mMaxSpeed         { 0.1 };
 
-        float mJumpSpeed        { 1 };
+        float mJumpSpeed        { 0.3 };
         float mFallSpeed        { 0.015 };
 
         int     FOV_CHANGE      { 2};
