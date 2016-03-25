@@ -77,6 +77,8 @@ Cube :: draw    ( const glm::mat4& view, const glm::mat4& proj, const float time
 
     glDrawElements ( GL_TRIANGLES, mNumIndices, GL_UNSIGNED_INT, 0);
 
+    //glDrawArrays( GL_TRIANGLES, 0, mNumIndices );
+
 
     mShader.unuseProgram();
     glBindVertexArray ( 0 );

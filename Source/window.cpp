@@ -10,7 +10,7 @@ Window :: Window()
                   "Balls.",
                   sf::Style::Close,
                   settings);
-    window.setFramerateLimit(60);                                                   //Set it's frame rate limit
+    window.setFramerateLimit(120);                                                   //Set it's frame rate limit
 
     window.setPosition({0,0});
 
@@ -21,8 +21,8 @@ Window :: Window()
 
     glViewport(0, 0, win::WINDOW_WIDTH, win::WINDOW_HEIGHT);  //OpenGL, cull faces to improve performance
     glEnable(GL_DEPTH_TEST);
-    //glEnable(GL_CULL_FACE);
-    //glCullFace(GL_BACK);
+    glEnable(GL_CULL_FACE);
+    glCullFace(GL_BACK);
 }
 
 void

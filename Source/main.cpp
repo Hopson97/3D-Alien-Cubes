@@ -2,6 +2,7 @@
 #include "rand.h"
 #include "window.h"
 #include "player.h"
+#include "fps_counter.h"
 
 int
 main()
@@ -35,6 +36,8 @@ main()
     }
 
     sf::Clock c;
+    FPS_Counter fpsCounter;
+
     while ( window.get().isOpen() ) {
 
         window.clear();
@@ -56,6 +59,8 @@ main()
         window.get().popGLStates();
 
         window.update();
+
+        fpsCounter.update();
     }
     return 0;
 }

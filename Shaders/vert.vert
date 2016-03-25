@@ -7,8 +7,8 @@ uniform mat4 viewMatrix;
 uniform mat4 modelMatrix;
 uniform float time;
 
-varying float zPosition;
-varying float currentTime;
+out float zPosition;
+out float currentTime;
 
 void set_outs ()
 {

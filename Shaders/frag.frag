@@ -1,7 +1,7 @@
 #version 330 core
 
-varying float zPosition;
-varying float currentTime;
+in float zPosition;
+in float currentTime;
 
 void main()
 {
@@ -11,10 +11,5 @@ void main()
 
     if ( c2 < 0.3) c2 = 0.3;
 
-
-
     gl_FragColor = vec4 ( c * c2, c2, c2, 1.0f);
-
-
-
 }
