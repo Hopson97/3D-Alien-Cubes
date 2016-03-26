@@ -4,6 +4,12 @@
 #include "player.h"
 #include "fps_counter.h"
 
+#include <SFML/Audio.hpp>
+
+#include <thread>
+
+
+
 int
 main()
 {
@@ -39,7 +45,6 @@ main()
     FPS_Counter fpsCounter;
 
     while ( window.get().isOpen() ) {
-
         window.clear();
 
         glm::mat4 proj;

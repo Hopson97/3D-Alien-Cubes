@@ -72,7 +72,7 @@ Player :: input       ( sf::RenderWindow& window )
 {
     mouseInput  ( window );
     jumpInput   ();
-    //fovInput    ();
+    fovInput    ();
 }
 
 void

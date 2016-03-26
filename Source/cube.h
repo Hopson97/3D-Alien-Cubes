@@ -37,7 +37,7 @@ class Cube : public Entity
 
         bool        doesFloat;
 
-        float       mPermYPos; //Where the floaters float around
+        glm::vec3   mPermPos;
 };
 
 #endif // CUBE_H
