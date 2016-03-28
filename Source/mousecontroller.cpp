@@ -4,8 +4,14 @@
 void
 MouseController :: getRot ( glm::vec3& rotVector, sf::RenderWindow& window )
 {
-    yRot( rotVector.y, window ); // Left - Right movement
-    xRot( rotVector.x, window ); // Up - Down movement
+    if ( sf::Keyboard::isKeyPressed ( sf::Keyboard::Q ) ) isMovementOn = false;
+    if ( sf::Keyboard::isKeyPressed ( sf::Keyboard::E ) ) isMovementOn = true;
+
+    if ( isMovementOn )
+    {
+        yRot( rotVector.y, window ); // Left - Right movement
+        xRot( rotVector.x, window ); // Up - Down movement
+    }
 }
 
 /// /////////////////////////////////////////////////////////
@@ -28,7 +34,7 @@ MouseController :: yRot    ( float& rotY, sf::RenderWindow& window  )
 void
 MouseController :: xRot    ( float& rotX, sf::RenderWindow& window  )
 {
-    const int maxRotDown = 50;
+    const int maxRotDown = 90;
     const int maxRotUp = -100;
 
     if ( rotX <= -360 ) rotX = 0;
@@ -40,11 +46,13 @@ MouseController :: xRot    ( float& rotX, sf::RenderWindow& window  )
 
     mouseYBefore = sf::Mouse::getPosition( window ).y;
 
-    if ( rotX > maxRotDown ) {      //Some if-statements to stop the view going upside-down
+    if ( rotX > maxRotDown )        //Some if-statements to stop the view going upside-down
+    {
         rotX = maxRotDown;
         return;
     }
-    else if ( rotX < maxRotUp ) {
+    else if ( rotX < maxRotUp )
+    {
         rotX = maxRotUp;
         return;
     }

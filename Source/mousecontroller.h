@@ -29,6 +29,8 @@ class MouseController
         unsigned    SENSITIVITY     { 7 },
                     MAX_SENSITIVITY { 10 };
 
+        bool isMovementOn { true };
+
 };
 
 #endif // MOUSECONTROLLER_H

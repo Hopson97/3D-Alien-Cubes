@@ -4,6 +4,7 @@
 #include "player.h"
 #include "fps_counter.h"
 #include "model.h"
+#include "height_generator.h"
 
 #include <SFML/Audio.hpp>
 
@@ -14,30 +15,41 @@ main()
 {
     srand(time(NULL));
 
-    int numCubes = 40 ;
+    SimplexNoise heightGen;
+
+    int numCubes = 100 ;
 
     Window  window;
     Player  player;
 
     std::vector<Cube> cubes;
 
-    for ( float z = numCubes; z > -numCubes ; z-- ) {
-        for ( float x = -numCubes; x < numCubes ; x++ ) {
-            cubes.emplace_back( glm::vec3(x, -2, z), false );
+    //float startY = -2;
+    //float endY = -5;
+
+    for ( float z = numCubes; z > 0 ; z-- ) {
+        for ( float x = 0; x < numCubes ; x++ ) {
+            //for ( float y = startY ; y > endY; y-- ) {
+                //cubes.emplace_back( glm::vec3(x, heightGen.noise( x, z), z), false );
+                cubes.emplace_back( glm::vec3(x, 0 , z), false );
+            //}
         }
     }
+
+    int start = 3;
+
     for ( int i = 0; i < numCubes ; i++) {
-        cubes.emplace_back( glm::vec3((float)random::num(- numCubes, numCubes ),
-                                      1,
-                                      ( float ) random::num( -numCubes, numCubes)), true );
+        cubes.emplace_back( glm::vec3((float)random::num(0, numCubes ),
+                                      start,
+                                      ( float ) random::num( 0, numCubes)), true );
 
-        cubes.emplace_back( glm::vec3((float)random::num(- numCubes, numCubes ),
-                                      2,
-                                      ( float ) random::num( -numCubes, numCubes)), true );
+        cubes.emplace_back( glm::vec3((float)random::num(0, numCubes ),
+                                      start + 1,
+                                      ( float ) random::num( 0, numCubes)), true );
 
-        cubes.emplace_back( glm::vec3((float)random::num(- numCubes, numCubes ),
-                                      3,
-                                      ( float ) random::num( -numCubes, numCubes)), true );
+        cubes.emplace_back( glm::vec3((float)random::num(0, numCubes ),
+                                      start + 2,
+                                      ( float ) random::num( 0, numCubes)), true );
     }
 
     sf::Clock c;
@@ -46,8 +58,9 @@ main()
 
     Model cubeModel;
 
-    float dt;
+    std::cout << "Vector size: " << cubes.size() << std::endl;
 
+    float dt;
     while ( window.get().isOpen() ) {
         window.clear();
 
@@ -59,10 +72,12 @@ main()
 
         player.update( view, proj, window.get(), time, dt );
 
+        glm::mat4 pvMat = proj * view;
+
         //Cube models
         cubeModel.bind();
         for ( auto& cube : cubes) {
-            cube.update ( view, proj, window.get(), time, cubeModel.getShaderID(), dt );
+            cube.update ( pvMat, window.get(), time, cubeModel.getShaderID(), dt );
             glDrawElements ( GL_TRIANGLES, cubeModel.getIndexCount() , GL_UNSIGNED_INT, 0);
         }
         cubeModel.unBind();

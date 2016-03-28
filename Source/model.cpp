@@ -10,79 +10,79 @@ Model :: Model()
 {
     const static std::vector<GLfloat> vertices =
     {
-        -0.5f,0.5f,-0.5f,
-        -0.5f,-0.5f,-0.5f,
-        0.5f,-0.5f,-0.5f,
-        0.5f,0.5f,-0.5f,
+				-0.5f,0.5f,-0.5f,
+				-0.5f,-0.5f,-0.5f,
+				0.5f,-0.5f,-0.5f,
+				0.5f,0.5f,-0.5f,
 
-        -0.5f,0.5f,0.5f,
-        -0.5f,-0.5f,0.5f,
-        0.5f,-0.5f,0.5f,
-        0.5f,0.5f,0.5f,
+				-0.5f,0.5f,0.5f,
+				-0.5f,-0.5f,0.5f,
+				0.5f,-0.5f,0.5f,
+				0.5f,0.5f,0.5f,
 
-        0.5f,0.5f,-0.5f,
-        0.5f,-0.5f,-0.5f,
-        0.5f,-0.5f,0.5f,
-        0.5f,0.5f,0.5f,
+				0.5f,0.5f,-0.5f,
+				0.5f,-0.5f,-0.5f,
+				0.5f,-0.5f,0.5f,
+				0.5f,0.5f,0.5f,
 
-        -0.5f,0.5f,-0.5f,
-        -0.5f,-0.5f,-0.5f,
-        -0.5f,-0.5f,0.5f,
-        -0.5f,0.5f,0.5f,
+				-0.5f,0.5f,-0.5f,
+				-0.5f,-0.5f,-0.5f,
+				-0.5f,-0.5f,0.5f,
+				-0.5f,0.5f,0.5f,
 
-        -0.5f,0.5f,0.5f,
-        -0.5f,0.5f,-0.5f,
-        0.5f,0.5f,-0.5f,
-        0.5f,0.5f,0.5f,
+				-0.5f,0.5f,0.5f,
+				-0.5f,0.5f,-0.5f,
+				0.5f,0.5f,-0.5f,
+				0.5f,0.5f,0.5f,
 
-        -0.5f,-0.5f,0.5f,
-        -0.5f,-0.5f,-0.5f,
-        0.5f,-0.5f,-0.5f,
-        0.5f,-0.5f,0.5f
+				-0.5f,-0.5f,0.5f,
+				-0.5f,-0.5f,-0.5f,
+				0.5f,-0.5f,-0.5f,
+				0.5f,-0.5f,0.5f
     };
 
     const static std::vector<GLuint> indices =
     {
-        0,1,3,
-        3,1,2,
-        4,5,7,
-        7,5,6,
-        8,9,11,
-        11,9,10,
-        12,13,15,
-        15,13,14,
-        16,17,19,
-        19,17,18,
-        20,21,23,
-        23,21,22
+				0,1,3,
+				3,1,2,
+				4,5,7,
+				7,5,6,
+				8,9,11,
+				11,9,10,
+				12,13,15,
+				15,13,14,
+				16,17,19,
+				19,17,18,
+				20,21,23,
+				23,21,22
     };
 
-    const static std::vector<GLfloat> texture =
+    const static std::vector<GLuint> textureCoords =
     {
-        0,0,
-        0,1,
-        1,1,
-        1,0,
-        0,0,
-        0,1,
-        1,1,
-        1,0,
-        0,0,
-        0,1,
-        1,1,
-        1,0,
-        0,0,
-        0,1,
-        1,1,
-        1,0,
-        0,0,
-        0,1,
-        1,1,
-        1,0,
-        0,0,
-        0,1,
-        1,1,
-        1,0
+				0,0,
+				0,1,
+				1,1,
+				1,0,
+				0,0,
+				0,1,
+				1,1,
+				1,0,
+				0,0,
+				0,1,
+				1,1,
+				1,0,
+				0,0,
+				0,1,
+				1,1,
+				1,0,
+				0,0,
+				0,1,
+				1,1,
+				1,0,
+				0,0,
+				0,1,
+				1,1,
+				1,0
     };
 
     mNumIndices = indices.size();
@@ -95,11 +95,17 @@ Model :: Model()
 
     glFuncs::addBufferObject    (mBufferObjectList, indices, GL_ELEMENT_ARRAY_BUFFER);   //Add EBO
 
+    glFuncs::addBufferObject    (mBufferObjectList, textureCoords, GL_TEXTURE_BUFFER);
+    glFuncs::addAttribPointer   (1, 2);
+
     glBindVertexArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
+    texture = glFuncs::createTexture( "Images/ayy lmao.png" );
+
     glDisableVertexAttribArray ( 0 );
+    glDisableVertexAttribArray ( 1 );
 }
 
 Model::~Model()
@@ -115,11 +121,14 @@ Model :: bind ()
 {
     glBindVertexArray ( mVao );
     mShader.useProgram();
+
+    glBindTexture(GL_TEXTURE_2D, texture);
 }
 
 void
 Model :: unBind  ()
 {
-    mShader.unuseProgram();
-    glBindVertexArray ( 0 );
+    mShader.unuseProgram    ( );
+    glBindVertexArray       ( 0 );
+    glBindTexture           ( GL_TEXTURE_2D, 0 );
 }

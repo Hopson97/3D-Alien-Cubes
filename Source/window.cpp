@@ -7,7 +7,7 @@ Window :: Window()
     settings.depthBits = 24;
 
     window.create(sf::VideoMode( win::WINDOW_WIDTH, win::WINDOW_HEIGHT),
-                  "Balls.",
+                  "ayyyyy lmao",
                   sf::Style::Close,
                   settings);
     window.setFramerateLimit(120);                                                   //Set it's frame rate limit

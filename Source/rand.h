@@ -6,9 +6,14 @@
 
 	namespace random
 	{
+        const int
+        num ( const int low, const int high);
 
-	int num(int low, int high);
+        const float
+        numF ( const float a, const float b);
 
+        const float
+        numF ( const float a, const float b, const int seed);
 	}
 
 	#endif // RANDOM_H_INCLUDED

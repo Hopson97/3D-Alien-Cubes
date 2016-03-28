@@ -36,6 +36,8 @@ class Model
     private:
         VboList     mBufferObjectList;
 
+        GLuint      texture;
+
         GLuint      mVao;
         GLuint      mNumIndices;
 
