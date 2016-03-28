@@ -9,20 +9,20 @@ class Player : public Entity
 {
     public:
         void
-        update      ( glm::mat4& view, glm::mat4& proj, sf::RenderWindow& window, const float time  ) override;
+        update      ( glm::mat4& view, glm::mat4& proj, sf::RenderWindow& window, const float time, const float dt  );
 
     private:
         void
-        input       ( sf::RenderWindow& window );
+        input       ( sf::RenderWindow& window, const float dt );
 
         void
         mouseInput  ( sf::RenderWindow& window );
 
         void
-        walkInput   ( float& dx, float& dz );
+        walkInput   ( float& dx, float& dz, const float dt );
 
         void
-        jumpInput   ();
+        jumpInput   ( const float dt);
 
         void
         fovInput    ();
@@ -30,10 +30,10 @@ class Player : public Entity
     private:
         MouseController mMouseController;
 
-        float mMaxSpeed         { 0.1 };
+        float mMaxSpeed         { 10 };
 
-        float mJumpSpeed        { 0.3 };
-        float mFallSpeed        { 0.015 };
+        float mJumpSpeed        { 15 };
+        float mFallSpeed        { 0.2 };
 
         int     FOV_CHANGE      { 2};
         float   FOV             { 90.0f};

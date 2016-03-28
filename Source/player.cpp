@@ -35,19 +35,19 @@ struct FOVdance
 FOVdance d;
 
 void
-Player :: update      (  glm::mat4& view, glm::mat4& proj, sf::RenderWindow& window, const float time  )
+Player :: update      (  glm::mat4& view, glm::mat4& proj, sf::RenderWindow& window, const float time, const float dt  )
 {
-    if ( mPosition.y < 0 ) mVelocity.y += mFallSpeed;
+    if ( mPosition.y < 0 ) mVelocity.y += mFallSpeed * dt;
     if ( mPosition.y >= 0 ) mPosition.y = 0;
 
-    input ( window );
+    input ( window, dt );
 
     //d.update( FOV );
 
     float       dx = 0
             ,   dz = 0;
 
-    walkInput( dx, dz );
+    walkInput( dx, dz, dt );
 
     mPosition.x += dx;
     mPosition.z += dz;
@@ -68,10 +68,10 @@ Player :: update      (  glm::mat4& view, glm::mat4& proj, sf::RenderWindow& win
 }
 
 void
-Player :: input       ( sf::RenderWindow& window )
+Player :: input       ( sf::RenderWindow& window, const float dt )
 {
     mouseInput  ( window );
-    jumpInput   ();
+    jumpInput   ( dt );
     fovInput    ();
 }
 
@@ -82,31 +82,31 @@ Player :: mouseInput  ( sf::RenderWindow& window )
 }
 
 void
-Player :: walkInput   ( float& dx, float& dz )
+Player :: walkInput   ( float& dx, float& dz, const float dt )
 {
     if ( sf::Keyboard::isKeyPressed ( sf::Keyboard::W ) ) {
-        dz += -mMaxSpeed * sin (  glm::radians ( mRotation.y ) );
-        dx += -mMaxSpeed * cos (  glm::radians ( mRotation.y ) );
+        dz += ( -mMaxSpeed * sin (  glm::radians ( mRotation.y ) ) ) * dt;
+        dx += ( -mMaxSpeed * cos (  glm::radians ( mRotation.y ) ) ) * dt;
     }
     if ( sf::Keyboard::isKeyPressed ( sf::Keyboard::S ) ) {
-        dz += mMaxSpeed * sin (  glm::radians ( mRotation.y ) );
-        dx += mMaxSpeed * cos (  glm::radians ( mRotation.y ) );
+        dz += ( mMaxSpeed * sin (  glm::radians ( mRotation.y ) ) ) * dt;
+        dx += ( mMaxSpeed * cos (  glm::radians ( mRotation.y ) ) ) * dt;
     }
     if ( sf::Keyboard::isKeyPressed ( sf::Keyboard::A ) ) {
-        dz += -mMaxSpeed * sin (  glm::radians ( mRotation.y - 90 ) );
-        dx += -mMaxSpeed * cos (  glm::radians ( mRotation.y - 90 ) );
+        dz += ( -mMaxSpeed * sin (  glm::radians ( mRotation.y - 90 ) ) ) * dt;
+        dx += ( -mMaxSpeed * cos (  glm::radians ( mRotation.y - 90 ) ) ) * dt;
     }
     if ( sf::Keyboard::isKeyPressed ( sf::Keyboard::D ) ) {
-        dz += -mMaxSpeed * sin (  glm::radians ( mRotation.y + 90 ) );
-        dx += -mMaxSpeed * cos (  glm::radians ( mRotation.y + 90 ) );
+        dz += ( -mMaxSpeed * sin (  glm::radians ( mRotation.y + 90 ) ) ) * dt;
+        dx += ( -mMaxSpeed * cos (  glm::radians ( mRotation.y + 90 ) ) ) * dt;
     }
 }
 
 void
-Player :: jumpInput   ()
+Player :: jumpInput   ( const float dt )
 {
     if ( sf::Keyboard::isKeyPressed( sf::Keyboard::Space ) && mPosition.y == 0  ) {
-        mVelocity.y -= mJumpSpeed;
+        mVelocity.y -= mJumpSpeed * dt;
     }
 }
 

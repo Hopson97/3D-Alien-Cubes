@@ -14,27 +14,13 @@
 
 class Cube : public Entity
 {
-    using VboList = std::vector<GLuint*>;
-
     public:
         Cube    ( const glm::vec3& positionVector, const bool floats );
-        ~Cube   ();
 
         void
-        update  ( glm::mat4& view, glm::mat4& proj, sf::RenderWindow& window, const float time ) override;
+        update  ( glm::mat4& view, glm::mat4& proj, sf::RenderWindow& window, const float time, const GLuint shaderID, const float dt );
 
     private:
-        void
-        draw    ( const glm::mat4& view, const glm::mat4& proj, const float time );
-
-    private:
-        VboList     mBufferObjectList;
-
-        GLuint      mVao;
-        GLuint      mNumIndices;
-
-        Shader      mShader;
-
         bool        doesFloat;
 
         glm::vec3   mPermPos;

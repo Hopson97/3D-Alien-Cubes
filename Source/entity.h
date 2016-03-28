@@ -7,9 +7,6 @@
 
 class Entity
 {
-    public:
-        virtual void
-        update      ( glm::mat4& view, glm::mat4& proj, sf::RenderWindow& window, const float time ) = 0;
 
     protected:
         glm::vec3 mVelocity { 0, 0, 0 };

@@ -3,19 +3,18 @@
 #include "window.h"
 #include "player.h"
 #include "fps_counter.h"
+#include "model.h"
 
 #include <SFML/Audio.hpp>
 
 #include <thread>
-
-
 
 int
 main()
 {
     srand(time(NULL));
 
-    int numCubes = 15;
+    int numCubes = 40 ;
 
     Window  window;
     Player  player;
@@ -42,21 +41,31 @@ main()
     }
 
     sf::Clock c;
+    sf::Clock FPSclock;
     FPS_Counter fpsCounter;
+
+    Model cubeModel;
+
+    float dt;
 
     while ( window.get().isOpen() ) {
         window.clear();
+
+        dt = FPSclock.restart().asSeconds();
 
         glm::mat4 proj;
         glm::mat4 view;
         float time = c.getElapsedTime().asSeconds();
 
-        player.update( view, proj, window.get(), time );
+        player.update( view, proj, window.get(), time, dt );
 
-        //GL drawing
+        //Cube models
+        cubeModel.bind();
         for ( auto& cube : cubes) {
-            cube.update ( view, proj, window.get(), time );
+            cube.update ( view, proj, window.get(), time, cubeModel.getShaderID(), dt );
+            glDrawElements ( GL_TRIANGLES, cubeModel.getIndexCount() , GL_UNSIGNED_INT, 0);
         }
+        cubeModel.unBind();
 
         window.get().pushGLStates();
         window.get().resetGLStates();
