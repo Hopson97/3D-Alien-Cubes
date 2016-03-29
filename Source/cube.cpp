@@ -57,6 +57,7 @@ Cube :: update  ( glm::mat4& pvMat, sf::RenderWindow& window, const float time, 
     glUniformMatrix4fv  ( pvLoc,  1, GL_FALSE, glm::value_ptr   ( pvMat ) );
     glUniform1f         ( timeLoc, time);
 
+
     //glDrawElements ( GL_TRIANGLES, mNumIndices, GL_UNSIGNED_INT, 0);
 
     //glDrawArrays( GL_TRIANGLES, 0, mNumIndices );

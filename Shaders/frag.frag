@@ -18,9 +18,11 @@ void colour()
     }
     //gl_FragColor = vec4 ( c * c2, c2, c2, 1.0f);
 
-    gl_FragColor = texture( txr, texCoord) * vec4 ( c * c2, c2, c2, 1.0f);
+    //gl_FragColor = texture( txr, texCoord) * vec4 ( c * c2, c2, c2, 1.0f);
 
-    //gl_FragColor = texture( txr, texCoord) * vec4 ( 1.0f, 1.0f, 0.5f, 1.0f);
+    gl_FragColor = texture( txr, texCoord) * vec4 ( 1.0f, 1.0f, 1.0f, 1.0f);
+
+    //gl_FragColor = texture ( txr, texture ) * vec4 ( 1,1,1,1);
 }
 
 void main()

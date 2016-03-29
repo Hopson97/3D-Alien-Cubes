@@ -36,9 +36,9 @@ class Player : public Entity
         MouseController mMouseController;
 
         float mSpeedChange      { 1  };
-        float mMaxSpeed         { 10 };
+        float mMaxSpeed         { 20 };
 
-        float mJumpSpeed        { 10  };
+        float mJumpSpeed        { 25  };
         float mFallSpeed        { 0.2 };
 
         int     FOV_CHANGE      { 2 };

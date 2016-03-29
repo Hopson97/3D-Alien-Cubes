@@ -8,110 +8,116 @@
 Model :: Model()
 :   mShader ( "Shaders/vert.vert", "Shaders/frag.frag" )
 {
-    const static std::vector<GLfloat> vertices =
-    {
-				-0.5f,0.5f,-0.5f,
-				-0.5f,-0.5f,-0.5f,
-				0.5f,-0.5f,-0.5f,
-				0.5f,0.5f,-0.5f,
+const static std::vector<GLfloat> vertices =
+{
+    -0.5f, -0.5f, -0.5f,
+    0.5f, -0.5f, -0.5f,
+    -0.5f, 0.5f, -0.5f,
+    0.5f, 0.5f, -0.5f,
 
-				-0.5f,0.5f,0.5f,
-				-0.5f,-0.5f,0.5f,
-				0.5f,-0.5f,0.5f,
-				0.5f,0.5f,0.5f,
+    0.5f, -0.5f, -0.5f,
+    0.5f, -0.5f, 0.5f,
+    0.5f, 0.5f, -0.5f,
+    0.5f, 0.5f, 0.5f,
 
-				0.5f,0.5f,-0.5f,
-				0.5f,-0.5f,-0.5f,
-				0.5f,-0.5f,0.5f,
-				0.5f,0.5f,0.5f,
+    0.5f, -0.5f, 0.5f,
+    -0.5f, -0.5f, 0.5f,
+    0.5f, 0.5f, 0.5f,
+    -0.5f, 0.5f, 0.5f,
 
-				-0.5f,0.5f,-0.5f,
-				-0.5f,-0.5f,-0.5f,
-				-0.5f,-0.5f,0.5f,
-				-0.5f,0.5f,0.5f,
+    -0.5f, -0.5f, 0.5f,
+    -0.5f, -0.5f, -0.5f,
+    -0.5f, 0.5f, 0.5f,
+    -0.5f, 0.5f, -0.5f,
 
-				-0.5f,0.5f,0.5f,
-				-0.5f,0.5f,-0.5f,
-				0.5f,0.5f,-0.5f,
-				0.5f,0.5f,0.5f,
+    -0.5f, 0.5f, -0.5f,
+    0.5f, 0.5f, -0.5f,
+    -0.5f, 0.5f, 0.5f,
+    0.5f, 0.5f, 0.5f,
 
-				-0.5f,-0.5f,0.5f,
-				-0.5f,-0.5f,-0.5f,
-				0.5f,-0.5f,-0.5f,
-				0.5f,-0.5f,0.5f
-    };
+    -0.5f, -0.5f, 0.5f,
+    0.5f, -0.5f, 0.5f,
+    -0.5f, -0.5f, -0.5f,
+    0.5f, -0.5f, -0.5f
+};
 
-    const static std::vector<GLuint> indices =
-    {
-				0,1,3,
-				3,1,2,
-				4,5,7,
-				7,5,6,
-				8,9,11,
-				11,9,10,
-				12,13,15,
-				15,13,14,
-				16,17,19,
-				19,17,18,
-				20,21,23,
-				23,21,22
-    };
+const static std::vector<GLuint> textureCoords =
+{
+    0,0,
+    1,0,
+    0,1,
+    1,1,
 
-    const static std::vector<GLuint> textureCoords =
-    {
-				0,0,
-				0,1,
-				1,1,
-				1,0,
-				0,0,
-				0,1,
-				1,1,
-				1,0,
-				0,0,
-				0,1,
-				1,1,
-				1,0,
-				0,0,
-				0,1,
-				1,1,
-				1,0,
-				0,0,
-				0,1,
-				1,1,
-				1,0,
-				0,0,
-				0,1,
-				1,1,
-				1,0
-    };
+    0,0,
+    1,0,
+    0,1,
+    1,1,
+
+    0,0,
+    1,0,
+    0,1,
+    1,1,
+
+    0,0,
+    1,0,
+    0,1,
+    1,1,
+
+    0,0,
+    1,0,
+    0,1,
+    1,1,
+
+    0,0,
+    1,0,
+    0,1,
+    1,1
+};
+
+const static std::vector<GLuint> indices =
+{
+    0, 1, 2,
+    2, 1, 3,
+    4, 5, 6,
+    6, 5, 7,
+    8, 9, 10,
+    10, 9, 11,
+    12, 13, 14,
+    14, 13, 15,
+    16, 17, 18,
+    18, 17, 19,
+    20, 21, 22,
+    22, 21, 23,
+    24, 25, 26,
+    26, 25, 27
+};
 
     mNumIndices = indices.size();
 
     glGenVertexArrays ( 1, &mVao);
     glBindVertexArray   ( mVao);
 
-    glFuncs::addBufferObject    (mBufferObjectList, vertices, GL_ARRAY_BUFFER);
+    glFuncs::addBufferObject    (mBufferObjectList, vertices, GL_ARRAY_BUFFER);         //Vertex coordinates
     glFuncs::addAttribPointer   (0, 3);
 
     glFuncs::addBufferObject    (mBufferObjectList, indices, GL_ELEMENT_ARRAY_BUFFER);   //Add EBO
 
-    glFuncs::addBufferObject    (mBufferObjectList, textureCoords, GL_TEXTURE_BUFFER);
+    glFuncs::addBufferObject    (mBufferObjectList, textureCoords, GL_ARRAY_BUFFER);  //Texture coordinates
     glFuncs::addAttribPointer   (1, 2);
 
     glBindVertexArray(0);
+
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
     texture = glFuncs::createTexture( "Images/ayy lmao.png" );
-
-    glDisableVertexAttribArray ( 0 );
-    glDisableVertexAttribArray ( 1 );
 }
 
 Model::~Model()
 {
     for ( auto& vbo : mBufferObjectList ) {
-        glDeleteBuffers (1, vbo);
+        glDeleteBuffers (1, &vbo);
     }
     glDeleteVertexArrays ( 1, &mVao);
 }
@@ -123,6 +129,7 @@ Model :: bind ()
     mShader.useProgram();
 
     glBindTexture(GL_TEXTURE_2D, texture);
+    //glActiveTexture(GL_TEXTURE0);
 }
 
 void
@@ -130,5 +137,7 @@ Model :: unBind  ()
 {
     mShader.unuseProgram    ( );
     glBindVertexArray       ( 0 );
-    glBindTexture           ( GL_TEXTURE_2D, 0 );
+
+    glBindTexture(GL_TEXTURE_2D, texture);
+    glUniform1i(glGetUniformLocation(mShader.getProgramId(), "txr"), 0);
 }

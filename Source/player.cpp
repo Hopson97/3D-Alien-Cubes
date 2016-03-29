@@ -14,14 +14,14 @@ Player :: update      (  glm::mat4& view, glm::mat4& proj, sf::RenderWindow& win
     if ( getPosition().y < height )      changeVelocity ( { 0, -mFallSpeed * dt, 0 } );
     if ( getPosition().y >= height  )    setPosition    ( { getPosition().x, height, getPosition().z } );
 
-    setVelocity( { getVelocity().x * 0.8, getVelocity().y, getVelocity().z * 0.8 } );
+    setVelocity( { getVelocity().x * 0.9, getVelocity().y, getVelocity().z * 0.9 } );
 
     input ( window, dt );
 
     //d.update( FOV );
 
     walkInput( dt );
-    checkVelocity();
+    //checkVelocity();
     changePosition ( { -getVelocity().x, -getVelocity().y, -getVelocity().z } );
 
     view =  glm::translate      ( view,  getPosition() );
@@ -108,3 +108,4 @@ Player :: checkVelocity ()
 
     if ( getVelocity().x >= mMaxSpeed ) setVelocity( { getVelocity().z, getVelocity().y, mMaxSpeed } );
 }
+

@@ -16,7 +16,7 @@
 
 class Model
 {
-    using VboList = std::vector<GLuint*>;
+    using VboList = std::vector<GLuint>;
     public:
         Model();
         virtual ~Model();
@@ -32,6 +32,9 @@ class Model
 
         const inline GLuint
         getShaderID         () { return mShader.getProgramId(); }
+
+        const inline GLuint
+        getTexture          () { return texture; }
 
     private:
         VboList     mBufferObjectList;

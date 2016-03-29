@@ -9,7 +9,7 @@
 namespace glFuncs {
 
 template<typename t>
-void addBufferObject(std::vector<GLuint*>& bufferObjectList, const std::vector<t>& data, const GLenum BUFFER_TYPE)
+void addBufferObject(std::vector<GLuint>& bufferObjectList, const std::vector<t>& data, const GLenum BUFFER_TYPE)
 {
     GLuint bufferObject;
     glGenBuffers(1, &bufferObject);
@@ -18,7 +18,7 @@ void addBufferObject(std::vector<GLuint*>& bufferObjectList, const std::vector<t
     glBufferData(BUFFER_TYPE, sizeof(t) * data.size(),
                  data.data(), GL_STATIC_DRAW);
 
-    bufferObjectList.push_back(&bufferObject);
+    bufferObjectList.push_back(bufferObject);
 }
 
 void addAttribPointer(GLuint location, GLuint dimensionPerVertex);

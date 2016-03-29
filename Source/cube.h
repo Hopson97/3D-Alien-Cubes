@@ -18,7 +18,7 @@ class Cube : public Entity
         Cube    ( const glm::vec3& positionVector, const bool floats );
 
         void
-        update  ( glm::mat4& pvMat, sf::RenderWindow& window, const float time, const GLuint shaderID, const float dt );
+        update  ( glm::mat4& pvMat, sf::RenderWindow& window, const float time, const GLuint shaderID, const float dt);
 
         void
         draw    ( const glm::vec3& playerPos, const GLuint indices );
