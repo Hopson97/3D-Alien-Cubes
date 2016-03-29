@@ -20,9 +20,6 @@ class Cube : public Entity
         void
         update  ( glm::mat4& pvMat, sf::RenderWindow& window, const float time, const GLuint shaderID, const float dt);
 
-        void
-        draw    ( const glm::vec3& playerPos, const GLuint indices );
-
     private:
         bool        doesFloat;
 

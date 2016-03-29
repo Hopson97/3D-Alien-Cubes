@@ -4,7 +4,6 @@
 #include "player.h"
 #include "fps_counter.h"
 #include "model.h"
-#include "height_generator.h"
 
 #include <SFML/Audio.hpp>
 
@@ -15,9 +14,8 @@ main()
 {
     srand(time(NULL));
 
-    SimplexNoise heightGen;
 
-    int numCubes = 50 ;
+    int numCubes = 100 ;
 
     Window  window;
     Player  player ( -numCubes / 2, -numCubes / 2 );
@@ -30,7 +28,6 @@ main()
     for ( float z = numCubes; z > 0 ; z-- ) {
         for ( float x = 0; x < numCubes ; x++ ) {
             //for ( float y = startY ; y > endY; y-- ) {
-                //cubes.emplace_back( glm::vec3(x, heightGen.noise( x, z), z), false );
                 cubes.emplace_back( glm::vec3(x, 0 , z), false );
             //}
         }
@@ -51,6 +48,10 @@ main()
                                       start + 2,
                                       ( float ) random::num( 0, numCubes)), true );
     }
+
+    cubes.emplace_back( glm::vec3(numCubes/2, 20, numCubes/2 ), true );
+
+    cubes.back().setScale( { 10, 10, 10 } );
 
     sf::Clock c;
     sf::Clock FPSclock;

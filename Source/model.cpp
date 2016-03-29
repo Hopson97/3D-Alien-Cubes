@@ -10,38 +10,38 @@ Model :: Model()
 {
 const static std::vector<GLfloat> vertices =
 {
+    0.5f, 0.5f, 0.5f,
+    -0.5f, 0.5f, 0.5f,
+    0.5f, -0.5f, 0.5f,
+    -0.5f, -0.5f, 0.5f,
+
+    -0.5f, 0.5f, 0.5f,
+    -0.5f, 0.5f, -0.5f,
+    -0.5f, -0.5f, 0.5f,
+    -0.5f, -0.5f, -0.5f,
+
+    -0.5f, 0.5f, -0.5f,
+    0.5f, 0.5f, -0.5f,
     -0.5f, -0.5f, -0.5f,
     0.5f, -0.5f, -0.5f,
-    -0.5f, 0.5f, -0.5f,
-    0.5f, 0.5f, -0.5f,
 
+    0.5f, 0.5f, -0.5f,
+    0.5f, 0.5f, 0.5f,
     0.5f, -0.5f, -0.5f,
     0.5f, -0.5f, 0.5f,
-    0.5f, 0.5f, -0.5f,
-    0.5f, 0.5f, 0.5f,
 
     0.5f, -0.5f, 0.5f,
     -0.5f, -0.5f, 0.5f,
-    0.5f, 0.5f, 0.5f,
-    -0.5f, 0.5f, 0.5f,
-
-    -0.5f, -0.5f, 0.5f,
+    0.5f, -0.5f, -0.5f,
     -0.5f, -0.5f, -0.5f,
-    -0.5f, 0.5f, 0.5f,
-    -0.5f, 0.5f, -0.5f,
 
-    -0.5f, 0.5f, -0.5f,
     0.5f, 0.5f, -0.5f,
-    -0.5f, 0.5f, 0.5f,
+    -0.5f, 0.5f, -0.5f,
     0.5f, 0.5f, 0.5f,
-
-    -0.5f, -0.5f, 0.5f,
-    0.5f, -0.5f, 0.5f,
-    -0.5f, -0.5f, -0.5f,
-    0.5f, -0.5f, -0.5f
+    -0.5f, 0.5f, 0.5f
 };
 
-const static std::vector<GLuint> textureCoords =
+const static std::vector<GLfloat> textureCoords =
 {
     0,0,
     1,0,
@@ -128,7 +128,9 @@ Model :: bind ()
     glBindVertexArray ( mVao );
     mShader.useProgram();
 
+    glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, texture);
+    glUniform1i(glGetUniformLocation(mShader.getProgramId(), "txr"), 0);
     //glActiveTexture(GL_TEXTURE0);
 }
 
@@ -137,7 +139,4 @@ Model :: unBind  ()
 {
     mShader.unuseProgram    ( );
     glBindVertexArray       ( 0 );
-
-    glBindTexture(GL_TEXTURE_2D, texture);
-    glUniform1i(glGetUniformLocation(mShader.getProgramId(), "txr"), 0);
 }

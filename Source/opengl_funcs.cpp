@@ -13,7 +13,7 @@ GLuint createTexture(const std::string& texturePath)
 {
     sf::Image image;
     image.loadFromFile(texturePath);
-    image.flipVertically();
+    //image.flipVertically();
 
     GLuint texturevbo;
     glGenTextures(1, &texturevbo);

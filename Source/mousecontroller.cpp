@@ -14,8 +14,6 @@ MouseController :: getRot ( glm::vec3& rotVector, sf::RenderWindow& window )
     }
 }
 
-/// /////////////////////////////////////////////////////////
-///Left and Right movement ( rotation around the Y-Axis ) ///
 void
 MouseController :: yRot    ( float& rotY, sf::RenderWindow& window  )
 {
@@ -29,8 +27,6 @@ MouseController :: yRot    ( float& rotY, sf::RenderWindow& window  )
     mouseXBefore = sf::Mouse::getPosition( window ).x;
 }
 
-/// //////////////////////////////////////////////////////
-///Up and Down movement ( rotation around the X-Axis ) ///
 void
 MouseController :: xRot    ( float& rotX, sf::RenderWindow& window  )
 {
