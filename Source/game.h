@@ -18,9 +18,6 @@ class Game
         run         ();
 
     private:
-        //void
-
-
         void
         addCubes    ();
 
