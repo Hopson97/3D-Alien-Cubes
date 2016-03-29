@@ -2,6 +2,7 @@
 
 #include "window.h"
 
+#include <iostream>
 #include <cmath>
 #include "fov_dance.h"
 
@@ -13,16 +14,15 @@ Player :: update      (  glm::mat4& view, glm::mat4& proj, sf::RenderWindow& win
     if ( getPosition().y < height )      changeVelocity ( { 0, -mFallSpeed * dt, 0 } );
     if ( getPosition().y >= height  )    setPosition    ( { getPosition().x, height, getPosition().z } );
 
+    setVelocity( { getVelocity().x * 0.8, getVelocity().y, getVelocity().z * 0.8 } );
+
     input ( window, dt );
 
     //d.update( FOV );
 
-    float       dx = 0
-            ,   dz = 0;
-
-    walkInput( dx, dz, dt );
-
-    changePosition ( { dx, -getVelocity().y, dz } );
+    walkInput( dt );
+    checkVelocity();
+    changePosition ( { -getVelocity().x, -getVelocity().y, -getVelocity().z } );
 
     view =  glm::translate      ( view,  getPosition() );
     proj =  glm::perspective    ( glm::radians( FOV ), win::WINDOW_WIDTH / win::WINDOW_HEIGHT, 0.01f, 100.0f );
@@ -53,27 +53,27 @@ Player :: mouseInput  ( sf::RenderWindow& window )
 }
 
 void
-Player :: walkInput   ( float& dx, float& dz, const float dt )
+Player :: walkInput   ( const float dt )
 {
     if ( sf::Keyboard::isKeyPressed ( sf::Keyboard::W ) )
     {
-        dz += ( -mMaxSpeed * sin (  glm::radians ( getRotation().y ) ) ) * dt;
-        dx += ( -mMaxSpeed * cos (  glm::radians ( getRotation().y ) ) ) * dt;
+        changeVelocity( { 0, 0, ( mSpeedChange * sin (  glm::radians ( getRotation().y ) ) ) * dt         } );
+        changeVelocity( {       ( mSpeedChange * cos (  glm::radians ( getRotation().y ) ) ) * dt, 0, 0   } );
     }
     if ( sf::Keyboard::isKeyPressed ( sf::Keyboard::S ) )
     {
-        dz += ( mMaxSpeed * sin  (  glm::radians ( getRotation().y ) ) ) * dt;
-        dx += ( mMaxSpeed * cos  (  glm::radians ( getRotation().y ) ) ) * dt;
+        changeVelocity( { 0, 0, ( -mSpeedChange * sin (  glm::radians ( getRotation().y ) ) ) * dt         } );
+        changeVelocity( {       ( -mSpeedChange * cos (  glm::radians ( getRotation().y ) ) ) * dt, 0, 0   } );
     }
     if ( sf::Keyboard::isKeyPressed ( sf::Keyboard::A ) )
     {
-        dz += ( -mMaxSpeed * sin (  glm::radians ( getRotation().y - 90 ) ) ) * dt;
-        dx += ( -mMaxSpeed * cos (  glm::radians ( getRotation().y - 90 ) ) ) * dt;
+        changeVelocity( { 0, 0, ( -mSpeedChange * sin (  glm::radians ( getRotation().y + 90 ) ) ) * dt         } );
+        changeVelocity( {       ( -mSpeedChange * cos (  glm::radians ( getRotation().y + 90 ) ) ) * dt, 0, 0   } );
     }
     if ( sf::Keyboard::isKeyPressed ( sf::Keyboard::D ) )
     {
-        dz += ( -mMaxSpeed * sin (  glm::radians ( getRotation().y + 90 ) ) ) * dt;
-        dx += ( -mMaxSpeed * cos (  glm::radians ( getRotation().y + 90 ) ) ) * dt;
+        changeVelocity( { 0, 0, ( mSpeedChange * sin (  glm::radians ( getRotation().y + 90  ) ) ) * dt         } );
+        changeVelocity( {       ( mSpeedChange * cos (  glm::radians ( getRotation().y + 90  ) ) ) * dt, 0, 0   } );
     }
 }
 
@@ -99,4 +99,12 @@ Player :: fovInput ()
         FOV -= FOV_CHANGE;
         if ( FOV < 1 ) FOV = 1;
     }
+}
+
+void
+Player :: checkVelocity ()
+{
+    if ( getVelocity().x >= mMaxSpeed ) setVelocity( { mMaxSpeed, getVelocity().y, getVelocity().z } );
+
+    if ( getVelocity().x >= mMaxSpeed ) setVelocity( { getVelocity().z, getVelocity().y, mMaxSpeed } );
 }

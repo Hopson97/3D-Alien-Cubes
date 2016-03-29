@@ -8,37 +8,44 @@
 class Player : public Entity
 {
     public:
-        Player() { setPosition( { 0, height, 0 } ); }
+        Player( const int x, const int z ) { setPosition( { x, height, z } ); }
 
         void
-        update      ( glm::mat4& view, glm::mat4& proj, sf::RenderWindow& window, const float time, const float dt  );
+        update          ( glm::mat4& view, glm::mat4& proj, sf::RenderWindow& window, const float time, const float dt  );
 
     private:
         void
-        input       ( sf::RenderWindow& window, const float dt );
+        input           ( sf::RenderWindow& window, const float dt );
 
         void
-        mouseInput  ( sf::RenderWindow& window );
+        mouseInput      ( sf::RenderWindow& window );
 
         void
-        walkInput   ( float& dx, float& dz, const float dt );
+        walkInput       ( const float dt );
 
         void
-        jumpInput   ( const float dt);
+        jumpInput       ( const float dt);
 
         void
-        fovInput    ();
+        fovInput        ();
+
+        void
+        checkVelocity   ();
 
     private:
         MouseController mMouseController;
 
+        float mSpeedChange      { 1  };
         float mMaxSpeed         { 10 };
 
-        float mJumpSpeed        { 10 };
+        float mJumpSpeed        { 10  };
         float mFallSpeed        { 0.2 };
 
-        int     FOV_CHANGE      { 2};
-        float   FOV             { 90.0f};
+        int     FOV_CHANGE      { 2 };
+
+        const
+        float   BASE_FOV        { 90.0f };
+        float   FOV             { BASE_FOV };
 
         const int height        { -3 };
 

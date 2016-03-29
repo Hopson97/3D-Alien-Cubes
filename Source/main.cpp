@@ -17,10 +17,10 @@ main()
 
     SimplexNoise heightGen;
 
-    int numCubes = 100 ;
+    int numCubes = 50 ;
 
     Window  window;
-    Player  player;
+    Player  player ( -numCubes / 2, -numCubes / 2 );
 
     std::vector<Cube> cubes;
 

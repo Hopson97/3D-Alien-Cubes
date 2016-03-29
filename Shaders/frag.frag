@@ -10,7 +10,7 @@ uniform sampler2D txr;
 void colour()
 {
     float c     = sin(currentTime);
-    float c2    = zPosition / 35;
+    float c2    = zPosition / 30;
 
     if ( c2 < 0.3)
     {
