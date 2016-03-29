@@ -12,7 +12,7 @@ Window :: Window()
                   settings);
     window.setFramerateLimit(120);                                                   //Set it's frame rate limit
 
-    window.setPosition({0,0});
+    window.setPosition({-1500,0});
 
     window.setMouseCursorVisible( false );
 

@@ -8,7 +8,7 @@
 class Player : public Entity
 {
     public:
-        Player( const int x, const int z ) { setPosition( { x, height, z } ); }
+        Player( const int x, const int y, const int z ) { setPosition( { x, y, z } ); }
 
         void
         update          ( glm::mat4& view, glm::mat4& proj, sf::RenderWindow& window, const float time, const float dt  );
@@ -47,7 +47,7 @@ class Player : public Entity
         float   BASE_FOV        { 90.0f };
         float   FOV             { BASE_FOV };
 
-        const int height        { -3 };
+        constexpr static int height        { -3 };
 
 };
 
