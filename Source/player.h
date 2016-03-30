@@ -4,50 +4,60 @@
 #include "entity.h"
 #include "mousecontroller.h"
 
-
+//The player is also sort of the "camera"
 class Player : public Entity
 {
     public:
-        Player( const int x, const int y, const int z ) { setPosition( { x, y, z } ); }
+        Player              ( const int x, const int y, const int z ) { setPosition( { x, y, z } ); }
 
         void
-        update          ( glm::mat4& view, glm::mat4& proj, sf::RenderWindow& window, const float time, const float dt  );
+        update              ( const float time, const float dt  );
+
+
+        void
+        input               ( sf::RenderWindow& window, const float dt );
+
+        inline const float
+        getFOV              ()  { return FOV; }
 
     private:
         void
-        input           ( sf::RenderWindow& window, const float dt );
+        mouseInput          ( sf::RenderWindow& window );
 
         void
-        mouseInput      ( sf::RenderWindow& window );
+        walkInput           ( const float dt );
 
         void
-        walkInput       ( const float dt );
+        jumpInput           ( const float dt);
 
         void
-        jumpInput       ( const float dt);
+        jump                ( const float dt );
 
         void
-        fovInput        ();
+        fovInput            ();
+
+        const bool
+        onGround            ();
 
         void
-        checkVelocity   ();
+        checkIfOnGround     ( const float dt );
+
+
 
     private:
         MouseController mMouseController;
 
-        float mSpeedChange      { 1  };
-        float mMaxSpeed         { 20 };
+        const static
+        int     groundHeight        { 3 },
+                FOV_CHANGE          { 2 };
 
-        float mJumpSpeed        { 25  };
-        float mFallSpeed        { 0.2 };
+        float   mJumpSpeed          { 10.0f  },
+                mFallSpeed          { 0.2f },
+                mSpeedChange        { 1.0f  },
+                mMaxSpeed           { 20.0f },
+                FOV                 { 90.0f };
 
-        int     FOV_CHANGE      { 2 };
-
-        const
-        float   BASE_FOV        { 90.0f };
-        float   FOV             { BASE_FOV };
-
-        constexpr static int height        { -3 };
+        bool    isJumping           { false };
 
 };
 

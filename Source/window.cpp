@@ -20,8 +20,10 @@ Window :: Window()
     glewInit();
 
     glViewport(0, 0, win::WINDOW_WIDTH, win::WINDOW_HEIGHT);  //OpenGL, cull faces to improve performance
-    glEnable(GL_DEPTH_TEST);
-    glEnable(GL_CULL_FACE);
+    glEnable ( GL_DEPTH_TEST    );
+    //glEnable ( GL_CULL_FACE     );
+    glEnable ( GL_TEXTURE_2D    );
+
     glCullFace(GL_BACK);
 }
 

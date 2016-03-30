@@ -18,8 +18,8 @@ Cube :: update  ( glm::mat4& pvMat, sf::RenderWindow& window, const float time, 
 {
     if ( doesFloat )
     {
-        const static float multiplier = 2;
-        float change = ( sin ( getPosition().x + time) / multiplier ) * dt;
+        const static float multiplier = 3;
+        float change = ( ( sin ( getPosition().z + getPosition().x + time ) ) / multiplier ) * dt;
         changePosition ( { 0, change, 0 } );
     }
 
