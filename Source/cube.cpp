@@ -5,7 +5,8 @@
 #include "rand.h"
 
 Cube :: Cube( const glm::vec3& positionVector, const bool floats )
-    :   doesFloat       ( floats )
+:   Block       ( false )
+,   doesFloat   ( floats )
 {
     setPosition ( positionVector );
 

@@ -111,8 +111,8 @@ const static std::vector<GLuint> indices =
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
-    texture = glFuncs::createTexture( "Images/ayy lmao.png" );
-    //texture = glFuncs::createTexture( "Images/bisqwit.png" );
+    texture = glFuncs::createTexture( "Images/metal.png" );
+    //texture = glFuncs::createTexture( "Images/bisqwit.png" ); //Bisqwit is just a YouTube I am a fan of :P
 }
 
 Model::~Model()

@@ -11,8 +11,9 @@
 #include "shader.h"
 #include "opengl_funcs.h"
 #include "entity.h"
+#include "block.h"
 
-class Cube : public Entity
+class Cube : public Entity, public Block
 {
     public:
         Cube    ( const glm::vec3& positionVector, const bool floats );

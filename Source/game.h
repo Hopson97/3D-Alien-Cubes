@@ -48,7 +48,7 @@ class Game
 
     private:
         constexpr static
-        int                 m_numCubes { 75 };
+        int                 m_numCubes { 100 };
 
         std::vector<Cube>   m_cubes;
 

@@ -3,6 +3,8 @@
 Game::Game()
 {
     addCubes();
+
+    std::cout << m_cubes.size() << std::endl;
 }
 
 void
