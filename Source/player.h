@@ -52,7 +52,7 @@ class Player : public Entity
                 FOV_CHANGE          { 2 };
 
         float   mJumpSpeed          { 10.0f  },
-                mFallSpeed          { 0.2f },
+                mFallSpeed          { 0.7f },
                 mSpeedChange        { 1.0f  },
                 mMaxSpeed           { 20.0f },
                 FOV                 { 90.0f };

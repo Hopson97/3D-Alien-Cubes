@@ -9,10 +9,12 @@ void
 Player :: update      ( const float time, const float dt  )
 {
     setVelocity( { getVelocity().x * 0.9, getVelocity().y, getVelocity().z * 0.9 } );
+
+    changePosition ( { getVelocity().x * dt, getVelocity().y * dt, getVelocity().z * dt } );
+
     checkIfOnGround( dt );
 
     walkInput( dt );
-    changePosition ( { getVelocity().x, getVelocity().y, getVelocity().z } );
 }
 
 void
@@ -34,23 +36,23 @@ Player :: walkInput   ( const float dt )
 {
     if ( sf::Keyboard::isKeyPressed ( sf::Keyboard::W ) )
     {
-        changeVelocity( { 0, 0, ( mSpeedChange * sin (  glm::radians ( getRotation().y ) ) ) * dt         } );
-        changeVelocity( {       ( mSpeedChange * cos (  glm::radians ( getRotation().y ) ) ) * dt, 0, 0   } );
+        changeVelocity( { 0, 0, ( mSpeedChange * sin (  glm::radians ( getRotation().y ) ) )         } );
+        changeVelocity( {       ( mSpeedChange * cos (  glm::radians ( getRotation().y ) ) ), 0, 0   } );
     }
     if ( sf::Keyboard::isKeyPressed ( sf::Keyboard::S ) )
     {
-        changeVelocity( { 0, 0, ( -mSpeedChange * sin (  glm::radians ( getRotation().y ) ) ) * dt         } );
-        changeVelocity( {       ( -mSpeedChange * cos (  glm::radians ( getRotation().y ) ) ) * dt, 0, 0   } );
+        changeVelocity( { 0, 0, ( -mSpeedChange * sin (  glm::radians ( getRotation().y ) ) )         } );
+        changeVelocity( {       ( -mSpeedChange * cos (  glm::radians ( getRotation().y ) ) ), 0, 0   } );
     }
     if ( sf::Keyboard::isKeyPressed ( sf::Keyboard::A ) )
     {
-        changeVelocity( { 0, 0, ( -mSpeedChange * sin (  glm::radians ( getRotation().y + 90 ) ) ) * dt         } );
-        changeVelocity( {       ( -mSpeedChange * cos (  glm::radians ( getRotation().y + 90 ) ) ) * dt, 0, 0   } );
+        changeVelocity( { 0, 0, ( -mSpeedChange * sin (  glm::radians ( getRotation().y + 90 ) ) )         } );
+        changeVelocity( {       ( -mSpeedChange * cos (  glm::radians ( getRotation().y + 90 ) ) ), 0, 0   } );
     }
     if ( sf::Keyboard::isKeyPressed ( sf::Keyboard::D ) )
     {
-        changeVelocity( { 0, 0, ( mSpeedChange * sin (  glm::radians ( getRotation().y + 90  ) ) ) * dt         } );
-        changeVelocity( {       ( mSpeedChange * cos (  glm::radians ( getRotation().y + 90  ) ) ) * dt, 0, 0   } );
+        changeVelocity( { 0, 0, ( mSpeedChange * sin (  glm::radians ( getRotation().y + 90  ) ) )         } );
+        changeVelocity( {       ( mSpeedChange * cos (  glm::radians ( getRotation().y + 90  ) ) ), 0, 0   } );
     }
 }
 
@@ -59,6 +61,7 @@ Player :: jumpInput   ( const float dt )
 {
     if ( sf::Keyboard::isKeyPressed( sf::Keyboard::Space ) && onGround()  )
     {
+        std::cout << "jump " << std::endl;
         jump( dt );
     }
 }
@@ -66,7 +69,7 @@ Player :: jumpInput   ( const float dt )
 void
 Player :: jump  ( const float dt )
 {
-    changeVelocity ( { 0, 0.5, 0 } );
+    changeVelocity ( { 0, mJumpSpeed, 0 } );
     isJumping = true;
 }
 
@@ -88,11 +91,11 @@ Player :: fovInput ()
 const bool
 Player :: onGround ()
 {
-
-    if ( getPosition().y < groundHeight )
+    if ( getPosition().y <= groundHeight )
     {
         isJumping = false;
-        setPosition( { getPosition().x, groundHeight, getPosition().z } );
+        setPosition( { getPosition().x, (int)groundHeight, getPosition().z } );
+        setVelocity ( {getVelocity().x, 0, getVelocity().z} );
         return true;
     }
     return false;
@@ -104,10 +107,6 @@ Player :: checkIfOnGround ( const float dt )
 
     if ( !onGround() )
     {
-        changeVelocity ( { 0, -mFallSpeed * dt, 0 } );
-    }
-    else if ( onGround() && !isJumping )
-    {
-        setPosition ( { getPosition().x, groundHeight, getPosition().z } );
+        changeVelocity ( { 0, -mFallSpeed, 0 } );
     }
 }
