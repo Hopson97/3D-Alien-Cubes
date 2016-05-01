@@ -3,4 +3,4 @@ A 3D walking scene made using OpenGL, C++, GLM and SFML. "O" and "P" can be used
 
 
 Here is what it looks like: 
-[alt text](http://puu.sh/oCaUO/660d5c6e7c.jpg "Cubes")
+![alt text](http://puu.sh/oCaUO/660d5c6e7c.jpg "Cubes")
